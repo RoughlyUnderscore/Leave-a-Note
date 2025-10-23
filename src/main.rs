@@ -1,12 +1,20 @@
 use axum::{routing::get, Router};
+use std::error::Error;
+
+mod config;
+mod app;
+mod telemetry;
+
+use config::Configuration;
 
 #[tokio::main]
-async fn main() {
-  let app = Router::new()
-    .route("/", get(root));
+async fn main() -> Result<(), Box<dyn Error>> {
+  let config = Configuration::load();
 
-  let listener = tokio::net::TcpListener::bind("0.0.0.0:45678").await.unwrap();
-  axum::serve(listener, app).await.unwrap();
+  telemetry::init_logging(&config)?;
+  app::run_app(config).await?;
+
+  Ok(())
 }
 
 async fn root() -> &'static str {
