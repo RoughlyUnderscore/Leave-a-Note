@@ -5,9 +5,10 @@ use axum::Router;
 use tracing::*;
 
 use crate::config::Configuration;
+use crate::db::DatabaseConnection;
 use crate::root;
 
-pub async fn run_app(config: Configuration) -> Result<(), Box<dyn Error>> {
+pub async fn run_app(config: Configuration, db: DatabaseConnection) -> Result<(), Box<dyn Error>> {
   let app = Router::new()
     .route("/", get(root));
 
