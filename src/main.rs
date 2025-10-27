@@ -4,6 +4,7 @@ mod config;
 mod app;
 mod telemetry;
 mod db;
+mod routes;
 
 use crate::{config::Configuration, db::DatabaseConnection};
 
@@ -16,8 +17,4 @@ async fn main() -> Result<(), Box<dyn Error>> {
   app::run_app(config, db).await?;
 
   Ok(())
-}
-
-async fn root() -> &'static str {
-  "hi girll"
 }

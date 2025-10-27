@@ -1,2 +1,4 @@
-pub mod root;
-pub use root::*;
+pub mod ping;
+pub use ping::*;
+
+pub mod auth;
